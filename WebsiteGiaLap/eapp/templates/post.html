@@ -1,0 +1,41 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+<style>
+    .post-content {
+        white-space: pre-wrap;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm bg-light rounded mt-3">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            {% if post.user == current_user %}
+            <li class="nav-item">
+                <a class="nav-link" href="/discuss/post/edit?id={{post.id}}">Sửa bài viết</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/discuss/post/delete?id={{post.id}}">Xóa bài viết</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Báo cáo bài viết</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+<section class="container-fluid bg-light rounded mt-3">
+    <h1 class="text-primary">{{post.title}}</h1>
+    <span class="text-success">
+        {{post.create_at}}
+    </span>
+    · Đăng bởi <a class="text-danger">{{post.user.name}}</a>
+</section>
+
+<section class="container-fluid bg-light rounded mt-3 mb-3 post-content">{{post.content}}</section>
+{% endblock %}
