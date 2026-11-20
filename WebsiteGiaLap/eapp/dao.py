@@ -1,5 +1,3 @@
-from sqlalchemy import null
-
 from eapp.models import Post, User
 from eapp import app, db
 import hashlib
