@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block content %}
+<style>
+    .post-content {
+        white-space: pre-wrap;
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm bg-light rounded mt-3">
+    <div class="container-fluid">
+        <ul class="navbar-nav">
+            {% if post.user == current_user %}
+            <li class="nav-item">
+                <a class="nav-link" href="/discuss/post/edit?id={{post.id | output_encode | safe}}">Sửa bài viết</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/discuss/post/delete?id={{post.id | output_encode | safe}}">Xóa bài viết</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Báo cáo bài viết</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+<section class="container-fluid bg-light rounded mt-3">
+    <h1 class="text-primary">{{post.title | safe}}</h1>
+    <span class="text-success">
+        {{post.create_at}}
+    </span>
+    · Đăng bởi <a class="text-danger">{{post.user.name | output_encode | safe}}</a>
+</section>
+
+<section class="container-fluid bg-light rounded mt-3 mb-3 post-content">{{post.content | output_encode | safe}}</section>
+
+<section class="container bg-light rounded mt-3 mb-3">
+    <h1 class="text-primary">Bình luận (0)</h1>
+    <form method="post" action="/discuss/post/edit">
+        <div class="mt-3 mb-3">
+            <label for="content">Đăng bình luận của bạn:</label>
+            <textarea class="form-control post-content" rows="3" id="content" placeholder="Nội dung"
+                      name="content"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng bình luận</button>
+    </form>
+<!--    <div id="post-list">-->
+<!--        <div class="post-item border rounded mb-3 mt-3">-->
+<!--            <div class="post-meta">-->
+<!--                <span class="text-success">Phan An Phú</span>-->
+<!--                <span class="text-danger">· Lúc 17:32:57 Hôm nay ·</span>-->
+<!--                <p>Mình vẫn chưa hiểu về XSS lắm</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</section>
+{% endblock %}

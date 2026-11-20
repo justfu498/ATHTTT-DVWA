@@ -1,0 +1,13 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block content %}
+<h1 class="text-center text-primary">
+    {% if current_user.is_authenticated %}
+    Xin chào, {{current_user.name}}!
+    {% else %}
+    Chào mừng bạn đến với diễn đàn OU
+    {% endif %}
+</h1>
+{% endblock %}
